@@ -1,0 +1,55 @@
+<div *ngIf="!this.components" class="absolute h-full w-full top-0 left-0 flex justify-center items-center">
+    <div class="spinner-border mr-6" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    Loading...
+</div>
+
+
+<div *ngIf="this.components">
+    <div [ngClass]="{'opacity-50': this.componentDetails || this.cancelAddButtonDivShow}" class="w-full">
+        <div class="w-full relative">
+            <img class="w-full" src="../../../assets/clicableImages/pelatriceImg.PNG" alt="">
+            <div *ngIf="this.components">
+                <app-button class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.yPos, 'left': componentButton.xPos}"  (click)="itemClicked(i)"
+                    [popoverTitle]="componentButton.title"
+                    [popoverContent]="getPopoverArrayForAppButton(componentButton.values)"
+                    buttonColor="{{this.getButtonColor(componentButton.id)}}"
+                ></app-button>
+                <app-button class="absolute" [ngClass]="previewButtonX && previewButtonY ? 'flex' : 'hidden'" [ngStyle]="{'top': previewButtonY + '%', 'left': previewButtonX + '%'}"
+                    popoverTitle="Preview"
+                    [popoverContent]="[{content: 'prova', color: ''}]"
+                    buttonColor="green"
+                ></app-button>
+            </div>
+        </div>
+
+        <div *ngIf="this.components && !this.showAddButtonDiv" class="my-3">
+            <input value="Add button" type="button" (click)="this.showAddButtonDiv = !this.showAddButtonDiv" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
+        </div>
+
+        <app-add-button *ngIf="this.showAddButtonDiv" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
+    </div>
+
+    
+
+    <div *ngIf="this.componentDetails">
+        <app-details-div (closeDivDetails)="closeDivDetailsFun()" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center"
+            [title]="componentDetails.title"
+            [content]="componentDetails.content"
+            [values]="componentDetails.values"
+        ></app-details-div>
+    </div>
+
+
+    
+    <div *ngIf="this.cancelAddButtonDivShow" class="fixed w-full h-full top-0 left-0 flex justify-center items-center">
+        <div class="bg-slate-200 p-6 rounded">
+            Are you sure? Tha changes will be lost...
+            <div class="flex justify-between mt-6">
+                <button (click)="this.confirmCancelAddButtonFun()" class="py-3 px-6 border-1 border-red-500 rounded text-red-500 cursor-pointer">Confirm</button>
+                <button (click)="this.cancelAddButtonDivShow = false" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

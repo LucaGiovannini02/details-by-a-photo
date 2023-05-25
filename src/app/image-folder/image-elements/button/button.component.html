@@ -1,0 +1,16 @@
+<span type="button" class="relative flex h-5 w-5"
+    triggers="mouseenter:mouseleave" 
+    data-popover-target="popover"
+
+    [popoverTitle]="cutString(this.popoverTitle, 20, '&nbsp;')"
+    [ngbPopover]="popContent"
+
+    id="popover"
+>
+    <span [ngClass]="{'bg-green-500': this.buttonColor == 'green', 'bg-red-500': this.buttonColor == 'red', 'bg-yellow-500': this.buttonColor == 'yellow', 'bg-teal-500': this.buttonColor == 'blue'}" class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-90"></span>
+    <span [ngClass]="{'bg-green-500': this.buttonColor == 'green', 'bg-red-500': this.buttonColor == 'red', 'bg-yellow-500': this.buttonColor == 'yellow', 'bg-teal-300': this.buttonColor == 'blue'}" class="relative inline-flex rounded-full h-5 w-5"></span>
+</span>
+
+<ng-template #popContent>
+    <div *ngFor="let popover of this.popoverContent;" [ngClass]="{'text-red-500': popover.color == 'red', 'text-yellow-500': popover.color == 'yellow', 'text-teal-600': popover.color == 'blue'}">{{popover.content}}</div>
+</ng-template>
