@@ -11,11 +11,13 @@
         <div class="w-full relative">
             <img class="w-full" src="../../../assets/clicableImages/pelatriceImg.PNG" alt="">
             <div *ngIf="this.components">
-                <app-button class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.yPos, 'left': componentButton.xPos}"  (click)="itemClicked(i)"
-                    [popoverTitle]="componentButton.title"
-                    [popoverContent]="getPopoverArrayForAppButton(componentButton.values)"
-                    buttonColor="{{this.getButtonColor(componentButton.id)}}"
-                ></app-button>
+                <div  class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.position.yPosition + '%', 'left': componentButton.position.xPosition + '%'}"  (click)="itemClicked(i)">
+                    <app-button *ngIf="this.componentButton.position.id != 0"
+                        [popoverTitle]="componentButton.myComponent.task"
+                        [popoverContent]="getPopoverArrayForAppButton(componentButton.details)"
+                        buttonColor="{{this.getButtonColor(i)}}"
+                    ></app-button>
+                </div>
                 <app-button class="absolute" [ngClass]="previewButtonX && previewButtonY ? 'flex' : 'hidden'" [ngStyle]="{'top': previewButtonY + '%', 'left': previewButtonX + '%'}"
                     popoverTitle="Preview"
                     [popoverContent]="[{content: 'prova', color: ''}]"
@@ -28,7 +30,7 @@
             <input value="Add button" type="button" (click)="this.showAddButtonDiv = !this.showAddButtonDiv" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
         </div>
 
-        <app-add-button *ngIf="this.showAddButtonDiv" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
+        <app-add-button *ngIf="this.showAddButtonDiv" [selectOptions]="getOptionsForAppAddButton()" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
     </div>
 
     
@@ -38,6 +40,7 @@
             [title]="componentDetails.title"
             [content]="componentDetails.content"
             [values]="componentDetails.values"
+            [IdButton]="componentDetails.idPositionButton"
         ></app-details-div>
     </div>
 

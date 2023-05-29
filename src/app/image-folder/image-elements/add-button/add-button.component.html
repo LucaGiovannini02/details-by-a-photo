@@ -1,41 +1,41 @@
-<div class="w-full bg-zinc-100 my-6 rounded-xl p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
-    <div>
+<form [formGroup]="formAddPosition">
+    <div class="w-full bg-zinc-100 my-6 rounded-xl p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
         <div>
-            <div class="font-bold underline text-2xl py-3">Select item</div>
-            Item to add:
-            <select class="ml-6">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-        </div>
-        <div>
-            <div class="font-bold underline text-2xl py-3">Position</div>
-            <div class="my-3">Put position values for button (put it in 0-100 %):</div>
-            <div class="mb-3 p-1">
-                <table>
-                    <tr>
-                        <td class="px-1">Abscissa (&harr; - X):</td> 
-                        <td class="px-1"><input #xInput (value)="xInput" class="border-1 border-zinc-400 rounded" type="number" min="0" max="100"></td>
-                        <td class="px-1">%</td>
-                    </tr>
-                    <tr>
-                        <td class="px-1">Ordinate (&#8597; - Y):</td> 
-                        <td class="px-1"><input #yInput [value]="yInput" class="border-1 border-zinc-400 rounded" type="number" min="0" max="100"></td>
-                        <td class="px-1">%</td>
-                    </tr>
-                </table>
+            <div>
+                <div class="font-bold underline text-2xl py-3">Select item</div>
+                Item to add:
+                <select class="ml-6" formControlName="item">
+                    <option *ngFor="let selectOption of selectOptions" [value]="selectOption.id">{{selectOption.task}}</option>
+                </select>
             </div>
-            <input value="Calculate preview" (click)="showButtonPreviewEmitFun(xInput.value, yInput.value)" type="button" class="py-3 px-6 border-1 border-green-500 rounded text-green-500 cursor-pointer">
+            <div>
+                <div class="font-bold underline text-2xl py-3">Position</div>
+                <div class="my-3">Put position values for button (put it in 0-100 %):</div>
+                <div class="mb-3 p-1">
+                    <table>
+                        <tr>
+                            <td class="px-1">Abscissa (&harr; - X):</td> 
+                            <td class="px-1"><input #xInput (value)="xInput" class="border-1 border-zinc-400 rounded" type="number" min="0" max="100" formControlName="xPos"></td>
+                            <td class="px-1">%</td>
+                        </tr>
+                        <tr>
+                            <td class="px-1">Ordinate (&#8597; - Y):</td> 
+                            <td class="px-1"><input #yInput [value]="yInput" class="border-1 border-zinc-400 rounded" type="number" min="0" max="100" formControlName="yPos"></td>
+                            <td class="px-1">%</td>
+                        </tr>
+                    </table>
+                </div>
+                <input value="Calculate preview" (click)="showButtonPreviewEmitFun(xInput.value, yInput.value)" type="button" class="py-3 px-6 border-1 border-green-500 rounded text-green-500 cursor-pointer">
+            </div>
         </div>
-    </div>
-    <div class="text-lg">
+        <div class="text-lg">
 
-    </div>
-    <div>
-        <div class="flex justify-end">
-            <input value="Close" type="button" (click)="cancelAddButtonFun()" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
+        </div>
+        <div>
+            <div class="flex justify-between mt-3">
+                <input [disabled]="!formAddPosition.valid" [ngClass]="{'opacity-50 cursor-default hover:bg-transparent': !formAddPosition.valid}" value="Confirm" type="button" (click)="submit()" class="py-3 px-6 border-1 border-green-500 rounded text-green-500 cursor-pointer">
+                <input value="Close" type="button" (click)="cancelAddButtonFun()" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
+            </div>
         </div>
     </div>
-</div>
+</form>

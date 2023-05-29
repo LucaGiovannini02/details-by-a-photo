@@ -17,17 +17,20 @@ export class ImageComponent implements OnInit {
 
   showAddButtonDiv: boolean = false;
   content: string = 'Motore grigio';
-  componentDetails?: {id: number, title: string, content: string, values: [{nameValue: string, value: number, greenLimit: number, yellowLimit: number, valueSymbol: string}]};
+  componentDetails?: any;
   temperatureCheckColor: string = 'blue';
 
-  components!: any;
+  components!: Array<any>;
+
+  componentsToAddButton!: Array<any>;
 
   itemClicked(_id: number) {
     this.componentDetails = {
       id: _id,
-      title : this.components[_id].title,
-      content : this.components[_id].content,
-      values : this.components[_id].values
+      title : this.components[_id].myComponent.task,
+      content : this.components[_id].myComponent.device,
+      values : this.components[_id].details,
+      idPositionButton : this.components[_id].position.id
     }
   }
 
@@ -37,42 +40,57 @@ export class ImageComponent implements OnInit {
 
   ngOnInit(): void {
     setInterval(() => {
-      this.components = Object.values(this.service.getComponentsWithValues());
+      Promise.resolve(this.service.getComponentsWithValues()).then((data) => {
+        this.components = [];
+        this.components = data;
+      })
 
       if(this.componentDetails) {
-        this.componentDetails.values = this.components[this.componentDetails.id].values; 
+        this.componentDetails.values = this.components[this.componentDetails.id].details; 
       }
+
+      // PERCHE NON CE LINDEX??!?!?!?!?
+
     }, 2000);
+
+
+    this.getComponents();
   }
 
-  getButtonColor(_id:  number) {
-    let aus = this.components[_id].values;
+  getButtonColor(_id: number) {
+    try{
 
-    if(!aus) {
+      let aus = this.components[_id].details;
+
+      if(!aus) {
+        return 'blue';
+      }
+
+      let colors = aus.map((data: any) => {
+        let colorToReturn = 'blue';
+
+        if(data['value'] > data['yellowLimit']) {
+          return 'red';
+        } else if (data['value'] > data['greenLimit'] && data['value'] <= data['yellowLimit']) {
+          colorToReturn = 'yellow';
+        } 
+
+        return colorToReturn;
+      })
+
+      if(colors.includes('red'))
+        return 'red';
+      else if(colors.includes('yellow'))
+        return 'yellow';
+      else
+        return 'blue'
+    } catch {
       return 'blue';
     }
-
-    let colors = aus.map((data: any) => {
-      let colorToReturn = 'blue';
-
-      if(data['value'] > data['yellowLimit']) {
-        return 'red';
-      } else if (data['value'] > data['greenLimit'] && data['value'] <= data['yellowLimit']) {
-        colorToReturn = 'yellow';
-      } 
-
-      return colorToReturn;
-    })
-
-    if(colors.includes('red'))
-      return 'red';
-    else if(colors.includes('yellow'))
-      return 'yellow';
-    else
-      return 'blue'
   }
 
   getPopoverArrayForAppButton(values: any) {
+
     let aus: any = [];
 
     values.map((data: any) => {
@@ -86,7 +104,24 @@ export class ImageComponent implements OnInit {
         ausColor = 'blue';
       }
 
-      aus.push({content: data.nameValue.substring(0, 6) + ': ' + data.value, color: ausColor})
+      aus.push({content: data.description.substring(0, 6) + ': ' + data.value, color: ausColor})
+    });
+
+    return aus;
+  }
+
+
+  getComponents() {
+    Promise.resolve(this.service.getOnlyComponents()).then((data: any) => {
+      this.componentsToAddButton = data;
+    });
+  }
+
+  getOptionsForAppAddButton() {
+    let aus: {'task': string, 'id': number}[] = [];
+
+    this.componentsToAddButton.map((data) => {
+      aus.push({'task': data.task, 'id': data.id});
     });
 
     return aus;

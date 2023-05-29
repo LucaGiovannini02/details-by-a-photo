@@ -1,4 +1,4 @@
-<div class="w-3/4 h-3/4 bg-slate-200 p-6 rounded">
+<div [ngClass]="{'hidden': this.showDeleteDiv}" class="w-3/4 h-3/4 bg-slate-200 p-6 rounded">
     <div class="h-full w-full" style="display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <div>
@@ -12,13 +12,28 @@
         </div>
         <div class="text-lg">
             <div *ngFor="let value of values; let i = index" [ngStyle]="{'color': this.getColorByLimits(i)}">
-                {{value.nameValue}}: {{value.value}} {{value.valueSymbol}}
+                {{value.description}}: {{value.value}} {{value.parameter}}
             </div>
         </div>
         <div>
             <div class="flex justify-end">
+                <input (click)="deleteDiv()" value="Delete button" type="button" class="mr-3 py-3 px-6 border-1 border-red-500 rounded text-red-500 cursor-pointer">
                 <input (click)="closeDivDetailsFun()" value="Close" type="button" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
             </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="showDeleteDiv" class="fixed w-full h-full top-0 left-0 flex justify-center items-center">
+    <div  class="p-3 bg-slate-200 rounded w-fit h-fit">
+        <div>
+            Do you want <span class="underline text-red-500">delete</span> the button?
+        </div>
+        <div class="flex justify-between mt-3">
+            <input (click)="confirmDeleteButton()" value="Yes" type="button" class="mr-3 py-3 px-6 border-1 border-red-500 rounded text-red-500 cursor-pointer">
+            <input (click)="cancelDeleteButtonFun()" value="No" type="button" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
         </div>
     </div>
 </div>

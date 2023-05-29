@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { DataRequestsService } from 'src/app/services/data-requests.service';
 
 @Component({
   selector: 'app-details-div',
@@ -8,12 +9,21 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class DetailsDivComponent implements OnInit {
   @Input() title!: string;
   @Input() content!: string;
-  @Input() values!: [{nameValue: string, value: number, greenLimit: number, yellowLimit: number, valueSymbol: string}];
+  @Input() values!: any;
+  @Input() IdButton!: number;
 
   @Output() closeDivDetails = new EventEmitter();
 
+  constructor(private service: DataRequestsService) {}
+
+  showDeleteDiv: boolean = false;
+
   closeDivDetailsFun() {
     this.closeDivDetails.emit();
+  }
+
+  cancelDeleteButtonFun() {
+    this.showDeleteDiv = false;
   }
 
   ngOnInit(): void {
@@ -31,5 +41,14 @@ export class DetailsDivComponent implements OnInit {
     }
 
     return "blue";
+  }
+
+  deleteDiv() {
+    this.showDeleteDiv = true;
+  }
+
+
+  confirmDeleteButton() {
+    Promise.resolve(this.service.deleteButton(this.IdButton)).then(() => window.location.reload());
   }
 }

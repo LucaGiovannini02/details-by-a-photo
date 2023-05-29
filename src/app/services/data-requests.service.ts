@@ -1,34 +1,111 @@
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataRequestsService implements OnInit {
+export class DataRequestsService {
+  apiRootLink: string = 'https://192.168.0.116:8999/api/';
+  apiPositionsLink: string = 'Positions/';
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.testFun();
+  }
+
+  async testFun() {
+    let result = await this.http.get<positionsResponse>(`${this.apiRootLink}${this.apiPositionsLink}ShowAllPositions`).toPromise().then((data) => {return data});
+  }
 
   components: any;
 
 
-  getComponentsWithValues() {
-    this.components = [
-      {id: 0, title: 'Motore', content: 'Motore grigio', xPos: '50%', yPos: '50%', values: [
-        {nameValue: 'Temperature', value: Math.floor(Math.random() * (130 - 40) + 40), greenLimit: 80, yellowLimit: 100, valueSymbol: 'C°'},
-        {nameValue: 'Giri motore', value: Math.floor(Math.random() * (18 - 3) + 3), greenLimit: 10, yellowLimit: 14, valueSymbol: 'RPM'}
-      ]},
-      {id: 1, title: 'Accelerometro', content: 'Vibrazioni macchina', xPos: '75%', yPos: '50%',  values: [
-        {nameValue: 'Vibrazioni', value: Math.floor(Math.random() * (300 - 1) + 1), greenLimit: 170, yellowLimit: 250, valueSymbol: 'VPM'},
-      ]},
-      {id: 2, title: 'Pompa', content: 'Pompa olio', xPos: '21%', yPos: '35%', values: [
-        {nameValue: 'Giri', value: Math.floor(Math.random() * (100 - 1) + 1), greenLimit: 50, yellowLimit: 80, valueSymbol: 'GPM'},
-      ]} 
-    ]
+  async getComponentsWithValues() {
+    let result = await this.http.get<positionsResponse>(`${this.apiRootLink}${this.apiPositionsLink}ShowAllPositions`).toPromise().then((data) => {return data});
 
-    return {...this.components};
+    this.components = result;
+
+    return this.components;
   }
 
-  ngOnInit(): void { }
+  async getOnlyComponents() {
+    let result = await this.http.get<getComponentsResponse>(`${this.apiRootLink}Components/ShowAllComponents`).toPromise().then((data) => {return data})
+
+    return result?.components;
+  }
+
+
+  async addPosition(body: {'_xPos': number, '_yPos': number, '_idItem': number}) {
+    this.http.post(`${this.apiRootLink}Positions/InsertNewPosition`, {id: 0, xPosition: body._xPos, yPosition: body._yPos, fk: body._idItem}, {responseType: 'text'}).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  async deleteButton(_idButton: number) {
+    this.http.delete(`${this.apiRootLink}Positions/DeletePosition?IdPosition=${_idButton}`, {responseType: 'text'}).subscribe((data) => {console.log(data)})
+  }
+}
 
 
 
+
+
+
+
+export type positionsResponse = positionResponse[]
+
+///////////////////////////////////////////////
+
+export interface positionResponse {
+  myComponent: MyComponent
+  details: Detail[]
+  position: Position
+}
+
+///////////////////////////////////////////////
+
+export interface MyComponent {
+  id: number
+  device: string
+  task: string
+  dateEntry: string
+  productItem: string
+  note: string
+  pathImage: any
+}
+
+export interface Detail {
+  id: number
+  parameter: string
+  description: string
+  value: number
+  dateEntry: string
+  fk: number
+  note: string
+  greenLimit: number
+  yellowLimit: number
+}
+
+export interface Position {
+  id: number
+  xPosition: number
+  yPosition: number
+  fk: number
+}
+
+
+
+
+export interface getComponentsResponse {
+  message: string
+  components: Component[]
+}
+
+export interface Component {
+  id: number
+  device: string
+  task: string
+  dateEntry: string
+  productItem: string
+  note: string
+  pathImage: string
 }

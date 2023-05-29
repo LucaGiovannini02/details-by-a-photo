@@ -31,7 +31,6 @@ export class ButtonComponent implements OnInit {
         result += byte;
       }
     } else {
-      console.log(result[limit])
       result = result.substring(0, limit - 3) + '...'
     }
     
