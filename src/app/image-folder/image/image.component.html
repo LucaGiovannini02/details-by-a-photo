@@ -18,7 +18,7 @@
                         buttonColor="{{this.getButtonColor(i)}}"
                     ></app-button>
                 </div>
-                <app-button class="absolute" [ngClass]="previewButtonX && previewButtonY ? 'flex' : 'hidden'" [ngStyle]="{'top': previewButtonY + '%', 'left': previewButtonX + '%'}"
+                <app-button class="absolute" [ngClass]="isNumber(previewButtonX) && isNumber(previewButtonY) ? 'flex' : 'hidden'" [ngStyle]="{'top': previewButtonY + '%', 'left': previewButtonX + '%'}"
                     popoverTitle="Preview"
                     [popoverContent]="[{content: 'prova', color: ''}]"
                     buttonColor="green"
@@ -40,6 +40,8 @@
             [title]="componentDetails.title"
             [content]="componentDetails.content"
             [values]="componentDetails.values"
+            [note] = "componentDetails.note"
+            [productItem] = "componentDetails.productItem"
             [IdButton]="componentDetails.idPositionButton"
             [isChanging]="this.oldPositions !== undefined ? true : false"
         ></app-details-div>

@@ -28,9 +28,17 @@ export class DataRequestsService {
   }
 
   async getOnlyComponents() {
-    let result = await this.http.get<getComponentsResponse>(`${this.apiRootLink}Components/ShowAllComponents`).toPromise().then((data) => {return data})
+    let result = await this.http.get<positionsResponse>(`${this.apiRootLink}${this.apiPositionsLink}ShowAllPositions`).toPromise().then((data) => {
+      let aus: Array<any> = [];
+      data?.map((dataAus) => {
+        if(dataAus.position.id == 0) {
+          aus.push(dataAus.myComponent)
+        }
+      })
+      return aus;
+    })
 
-    return result?.components;
+    return result;
   }
 
 

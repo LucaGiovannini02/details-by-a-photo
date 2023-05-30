@@ -1,13 +1,23 @@
-<div [ngClass]="{'hidden': this.showDeleteDiv}" class="w-3/4 h-3/4 bg-slate-200 p-6 rounded">
+<div [ngClass]="{'hidden': this.showDeleteDiv}" class="w-3/4 h-3/4 bg-slate-100 p-6 rounded">
     <div class="h-full w-full" style="display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <div>
-                <div class="font-bold underline text-2xl py-3">Title</div>
-                <div>{{title}}</div>
+                <div class="font-bold underline text-2xl pt-3">{{title}}</div>
             </div>
             <div>
-                <div class="font-bold underline text-2xl py-3">Content</div>
-                <div>{{content}}</div>
+                <div class="font-bold text-lg pt-3">Content</div>
+                <div *ngIf="content != ''">{{content}}</div>
+                <div *ngIf="content == ''">-</div>
+            </div>
+            <div>
+                <div class="font-bold text-lg pt-3">Product item</div>
+                <div *ngIf="productItem != ''">{{productItem}}</div>
+                <div *ngIf="productItem == ''">-</div>
+            </div>
+            <div>
+                <div class="font-bold text-lg pt-3">Note</div>
+                <div *ngIf="note != ''">{{note}}</div>
+                <div *ngIf="note == ''">-</div>
             </div>
         </div>
         <div class="text-lg">

@@ -10,9 +10,12 @@ export class DetailsDivComponent implements OnInit {
   @Input() title!: string;
   @Input() content!: string;
   @Input() values!: any;
+  @Input() note!: any;
+  @Input() productItem!: any;
   @Input() IdButton!: number;
 
   @Input() isChanging: boolean = false;
+  @Input() component!: any;
 
   @Output() closeDivDetails = new EventEmitter();
   @Output() changePositionButtonEvent = new EventEmitter<number>();

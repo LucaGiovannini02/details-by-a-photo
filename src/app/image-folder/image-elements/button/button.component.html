@@ -2,7 +2,7 @@
     triggers="mouseenter:mouseleave" 
     data-popover-target="popover"
 
-    [popoverTitle]="cutString(this.popoverTitle, 20, '&nbsp;')"
+    [popoverTitle]="cutString(this.popoverTitle, 20, '&nbsp;').replace(' ', '&nbsp;')"
     [ngbPopover]="popContent"
 
     id="popover"

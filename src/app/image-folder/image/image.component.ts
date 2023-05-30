@@ -12,8 +12,8 @@ export class ImageComponent implements OnInit {
 
   oldPositions!: any;
 
-  previewButtonX: number = 0;
-  previewButtonY: number = 0;
+  previewButtonX: number = NaN;
+  previewButtonY: number = NaN;
 
   constructor(private service: DataRequestsService) {}
 
@@ -34,6 +34,8 @@ export class ImageComponent implements OnInit {
       title : this.components[_id].myComponent.task,
       content : this.components[_id].myComponent.device,
       values : this.components[_id].details,
+      note : this.components[_id].myComponent.note,
+      productItem : this.components[_id].myComponent.productItem,
       idPositionButton : this.components[_id].position.id
     }
   }
@@ -48,7 +50,7 @@ export class ImageComponent implements OnInit {
         this.components = [];
         this.components = data;
 
-        if(this.isButtonChanging) {
+        if(this.isButtonChanging?.idPosition) {
           this.takePositionById(this.isButtonChanging.idPosition).xPosition = this.isButtonChanging.xPos;
           this.takePositionById(this.isButtonChanging.idPosition).yPosition = this.isButtonChanging.yPos;
         }
@@ -160,6 +162,11 @@ export class ImageComponent implements OnInit {
     this.previewButtonX = NaN;
     this.previewButtonY = NaN;
     delete this.isButtonChanging;
+
+    Promise.resolve(this.service.getComponentsWithValues()).then((data) => {
+      this.components = [];
+      this.components = data;
+    });
   }
 
 
@@ -193,5 +200,9 @@ export class ImageComponent implements OnInit {
     })
 
     return aus;
+  }
+
+  isNumber(_x: any) {
+    return Number.isFinite(_x)
   }
 }
