@@ -10,6 +10,8 @@ export class ImageComponent implements OnInit {
   @Output() closeDetailsDiv = new EventEmitter();
   cancelAddButtonDivShow: boolean = false;
 
+  oldPositions!: any;
+
   previewButtonX: number = 0;
   previewButtonY: number = 0;
 
@@ -19,6 +21,8 @@ export class ImageComponent implements OnInit {
   content: string = 'Motore grigio';
   componentDetails?: any;
   temperatureCheckColor: string = 'blue';
+
+  isButtonChanging!: any;
 
   components!: Array<any>;
 
@@ -43,6 +47,11 @@ export class ImageComponent implements OnInit {
       Promise.resolve(this.service.getComponentsWithValues()).then((data) => {
         this.components = [];
         this.components = data;
+
+        if(this.isButtonChanging) {
+          this.takePositionById(this.isButtonChanging.idPosition).xPosition = this.isButtonChanging.xPos;
+          this.takePositionById(this.isButtonChanging.idPosition).yPosition = this.isButtonChanging.yPos;
+        }
       })
 
       if(this.componentDetails) {
@@ -50,6 +59,7 @@ export class ImageComponent implements OnInit {
       }
 
       // PERCHE NON CE LINDEX??!?!?!?!?
+
 
     }, 2000);
 
@@ -129,8 +139,14 @@ export class ImageComponent implements OnInit {
 
 
   showButtonPreviewFun(data: any) {
-    this.previewButtonX = data.xPos;
-    this.previewButtonY = data.yPos;
+    this.isButtonChanging = data;
+    if(data.idPosition) {
+      this.takePositionById(data.idPosition).xPosition = data.xPos;
+      this.takePositionById(data.idPosition).yPosition = data.yPos;
+    } else {
+      this.previewButtonX = data.xPos;
+      this.previewButtonY = data.yPos;
+    }
   }
 
   cancelAddButtonFun() {
@@ -140,5 +156,42 @@ export class ImageComponent implements OnInit {
   confirmCancelAddButtonFun() {
     this.cancelAddButtonDivShow = false;
     this.showAddButtonDiv = false;
+    delete this.oldPositions;
+    this.previewButtonX = NaN;
+    this.previewButtonY = NaN;
+    delete this.isButtonChanging;
+  }
+
+
+  changePositionButton(_id: number) {
+    delete this.componentDetails;
+
+    let aus = this.takePositionById(_id);
+
+    this.oldPositions = {xPos: aus.xPosition, yPos: aus.yPosition, task: this.takeComponentById(aus.fk).task, idPosition: _id}
+  }
+
+  takePositionById(_id: number): any {
+    let aus = "";
+
+    this.components.map((data) => {
+      if(data.position.id == _id) {
+        aus = data.position;
+      }
+    })
+
+    return aus;
+  }
+
+  takeComponentById(_id: number): any {
+    let aus = "";
+
+    this.components.map((data) => {
+      if(data.myComponent.id == _id) {
+        aus = data.myComponent;
+      }
+    })
+
+    return aus;
   }
 }

@@ -13,4 +13,5 @@
 
 <ng-template #popContent>
     <div *ngFor="let popover of this.popoverContent;" [ngClass]="{'text-red-500': popover.color == 'red', 'text-yellow-500': popover.color == 'yellow', 'text-teal-600': popover.color == 'blue'}">{{popover.content}}</div>
+    <div *ngIf="!this.popoverContent.length" class="italic">No data</div>
 </ng-template>

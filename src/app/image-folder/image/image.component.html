@@ -11,7 +11,7 @@
         <div class="w-full relative">
             <img class="w-full" src="../../../assets/clicableImages/pelatriceImg.PNG" alt="">
             <div *ngIf="this.components">
-                <div  class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.position.yPosition + '%', 'left': componentButton.position.xPosition + '%'}"  (click)="itemClicked(i)">
+                <div class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.position.yPosition + '%', 'left': componentButton.position.xPosition + '%'}"  (click)="itemClicked(i)">
                     <app-button *ngIf="this.componentButton.position.id != 0"
                         [popoverTitle]="componentButton.myComponent.task"
                         [popoverContent]="getPopoverArrayForAppButton(componentButton.details)"
@@ -26,21 +26,22 @@
             </div>
         </div>
 
-        <div *ngIf="this.components && !this.showAddButtonDiv" class="my-3">
+        <div *ngIf="this.components && !this.showAddButtonDiv && !this.oldPositions" class="my-3">
             <input value="Add button" type="button" (click)="this.showAddButtonDiv = !this.showAddButtonDiv" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
         </div>
 
-        <app-add-button *ngIf="this.showAddButtonDiv" [selectOptions]="getOptionsForAppAddButton()" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
+        <app-add-button *ngIf="this.showAddButtonDiv || this.oldPositions" [oldPosition]="this.oldPositions" [selectOptions]="getOptionsForAppAddButton()" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
     </div>
 
     
 
     <div *ngIf="this.componentDetails">
-        <app-details-div (closeDivDetails)="closeDivDetailsFun()" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center"
+        <app-details-div (changePositionButtonEvent)="changePositionButton($event)" (closeDivDetails)="closeDivDetailsFun()" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center"
             [title]="componentDetails.title"
             [content]="componentDetails.content"
             [values]="componentDetails.values"
             [IdButton]="componentDetails.idPositionButton"
+            [isChanging]="this.oldPositions !== undefined ? true : false"
         ></app-details-div>
     </div>
 

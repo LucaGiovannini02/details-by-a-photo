@@ -43,6 +43,10 @@ export class DataRequestsService {
   async deleteButton(_idButton: number) {
     this.http.delete(`${this.apiRootLink}Positions/DeletePosition?IdPosition=${_idButton}`, {responseType: 'text'}).subscribe((data) => {console.log(data)})
   }
+
+  async changePositionOfButton(_idButton: number, _newXPosition: number, _newYPosition: number) {
+    this.http.patch(`${this.apiRootLink}Positions/ModifyPosition`, {"id": _idButton, "xPosition": _newXPosition, "yPosition": _newYPosition, "fk": 0}, {responseType: 'text'}).subscribe((data) => console.log(data))
+  }
 }
 
 

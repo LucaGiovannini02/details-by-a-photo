@@ -12,7 +12,10 @@ export class DetailsDivComponent implements OnInit {
   @Input() values!: any;
   @Input() IdButton!: number;
 
+  @Input() isChanging: boolean = false;
+
   @Output() closeDivDetails = new EventEmitter();
+  @Output() changePositionButtonEvent = new EventEmitter<number>();
 
   constructor(private service: DataRequestsService) {}
 
@@ -31,9 +34,6 @@ export class DetailsDivComponent implements OnInit {
   }
 
   getColorByLimits(_id: number) {
-
-    
-
     if(Number(this.values[_id].value) > Number(this.values[_id].yellowLimit)) {
       return "red";
     } else if(Number(this.values[_id].value) > Number(this.values[_id].greenLimit)) {
@@ -50,5 +50,10 @@ export class DetailsDivComponent implements OnInit {
 
   confirmDeleteButton() {
     Promise.resolve(this.service.deleteButton(this.IdButton)).then(() => window.location.reload());
+  }
+
+
+  changePosition(_idButton: number) {
+    this.changePositionButtonEvent.emit(_idButton);
   }
 }
