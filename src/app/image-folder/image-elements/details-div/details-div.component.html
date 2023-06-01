@@ -28,16 +28,16 @@
         <div>
             <div class="flex justify-end">
                 <button
-                    *ngIf="this.isChanging"
+                    *ngIf="this.isChanging || this.isAdding"
                     type="button"
                     class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer opacity-50"
-                    ngbPopover="You are already changin position of other or same component!"
+                    ngbPopover="{{(this.isChanging) ? 'You are already changin position of other or same component!' : 'You are already adding position of a component!'}}"
                     triggers="mouseenter:mouseleave"
                     popoverTitle="Attention!"
                 >
                     Change position
                 </button>
-                <input *ngIf="!this.isChanging" (click)="changePosition(this.IdButton)" value="Change position" type="button" class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer">
+                <input *ngIf="!this.isChanging && !this.isAdding" (click)="changePosition(this.IdButton)" value="Change position" type="button" class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer">
                 <input (click)="deleteDiv()" value="Delete button" type="button" class="mr-3 py-3 px-6 border-1 border-red-500 rounded text-red-500 cursor-pointer">
                 <input (click)="closeDivDetailsFun()" value="Close" type="button" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
             </div>

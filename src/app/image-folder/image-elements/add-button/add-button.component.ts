@@ -51,8 +51,6 @@ export class AddButtonComponent implements OnInit {
       this.xInputField = this.oldPosition.xPos;
       this.yInputField = this.oldPosition.yPos;
     }
-
-    console.log(this.selectOptions)
   }
 
   submit() {

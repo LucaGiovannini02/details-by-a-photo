@@ -28,14 +28,8 @@ export class DataRequestsService {
   }
 
   async getOnlyComponents() {
-    let result = await this.http.get<positionsResponse>(`${this.apiRootLink}${this.apiPositionsLink}ShowAllPositions`).toPromise().then((data) => {
-      let aus: Array<any> = [];
-      data?.map((dataAus) => {
-        if(dataAus.position.id == 0) {
-          aus.push(dataAus.myComponent)
-        }
-      })
-      return aus;
+    let result = await this.http.get<MyComponent>(`${this.apiRootLink}${this.apiPositionsLink}getComponentsWithoutPosition`).toPromise().then((data) => {
+      return data;
     })
 
     return result;
@@ -44,16 +38,16 @@ export class DataRequestsService {
 
   async addPosition(body: {'_xPos': number, '_yPos': number, '_idItem': number}) {
     this.http.post(`${this.apiRootLink}Positions/InsertNewPosition`, {id: 0, xPosition: body._xPos, yPosition: body._yPos, fk: body._idItem}, {responseType: 'text'}).subscribe((data) => {
-      console.log(data);
+      
     });
   }
 
   async deleteButton(_idButton: number) {
-    this.http.delete(`${this.apiRootLink}Positions/DeletePosition?IdPosition=${_idButton}`, {responseType: 'text'}).subscribe((data) => {console.log(data)})
+    this.http.delete(`${this.apiRootLink}Positions/DeletePosition?IdPosition=${_idButton}`, {responseType: 'text'}).subscribe((data) => {})
   }
 
   async changePositionOfButton(_idButton: number, _newXPosition: number, _newYPosition: number) {
-    this.http.patch(`${this.apiRootLink}Positions/ModifyPosition`, {"id": _idButton, "xPosition": _newXPosition, "yPosition": _newYPosition, "fk": 0}, {responseType: 'text'}).subscribe((data) => console.log(data))
+    this.http.patch(`${this.apiRootLink}Positions/ModifyPosition`, {"id": _idButton, "xPosition": _newXPosition, "yPosition": _newYPosition, "fk": 0}, {responseType: 'text'}).subscribe((data) => {})
   }
 }
 

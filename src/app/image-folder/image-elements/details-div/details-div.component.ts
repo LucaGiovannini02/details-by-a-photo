@@ -14,6 +14,7 @@ export class DetailsDivComponent implements OnInit {
   @Input() productItem!: any;
   @Input() IdButton!: number;
 
+  @Input() isAdding: boolean = false;
   @Input() isChanging: boolean = false;
   @Input() component!: any;
 
