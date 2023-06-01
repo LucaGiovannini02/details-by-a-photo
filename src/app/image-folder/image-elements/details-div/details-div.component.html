@@ -27,7 +27,17 @@
         </div>
         <div>
             <div class="flex justify-end">
-                <input [disabled]="this.isChanging" [ngClass]="{'opacity-50': this.isChanging}" (click)="changePosition(this.IdButton)" value="Change position" type="button" class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer">
+                <button
+                    *ngIf="this.isChanging"
+                    type="button"
+                    class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer opacity-50"
+                    ngbPopover="You are already changin position of other or same component!"
+                    triggers="mouseenter:mouseleave"
+                    popoverTitle="Attention!"
+                >
+                    Change position
+                </button>
+                <input *ngIf="!this.isChanging" (click)="changePosition(this.IdButton)" value="Change position" type="button" class="mr-3 py-3 px-6 border-1 border-blue-500 rounded text-blue-500 cursor-pointer">
                 <input (click)="deleteDiv()" value="Delete button" type="button" class="mr-3 py-3 px-6 border-1 border-red-500 rounded text-red-500 cursor-pointer">
                 <input (click)="closeDivDetailsFun()" value="Close" type="button" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
             </div>

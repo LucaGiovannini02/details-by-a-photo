@@ -9,7 +9,7 @@
 <div *ngIf="this.components">
     <div [ngClass]="{'opacity-50': this.componentDetails || this.cancelAddButtonDivShow}" class="w-full">
         <div class="w-full relative">
-            <img class="w-full" src="../../../assets/clicableImages/pelatriceImg.PNG" alt="">
+            <img class="w-full" src="{{this.location}}assets/img/pelatriceImg.PNG" alt="">
             <div *ngIf="this.components">
                 <div class="absolute" *ngFor="let componentButton of components; let i = index" [ngStyle]="{'top': componentButton.position.yPosition + '%', 'left': componentButton.position.xPosition + '%'}"  (click)="itemClicked(i)">
                     <app-button *ngIf="this.componentButton.position.id != 0"
@@ -20,7 +20,7 @@
                 </div>
                 <app-button class="absolute" [ngClass]="isNumber(previewButtonX) && isNumber(previewButtonY) ? 'flex' : 'hidden'" [ngStyle]="{'top': previewButtonY + '%', 'left': previewButtonX + '%'}"
                     popoverTitle="Preview"
-                    [popoverContent]="[{content: 'prova', color: ''}]"
+                    [popoverContent]="[{content: 'Preview of new button', color: ''}]"
                     buttonColor="green"
                 ></app-button>
             </div>

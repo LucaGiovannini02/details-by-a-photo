@@ -7,6 +7,8 @@ import { DataRequestsService } from 'src/app/services/data-requests.service';
   styleUrls: ['./image.component.css']
 })
 export class ImageComponent implements OnInit {
+  location: any = window.location.href;
+  
   @Output() closeDetailsDiv = new EventEmitter();
   cancelAddButtonDivShow: boolean = false;
 

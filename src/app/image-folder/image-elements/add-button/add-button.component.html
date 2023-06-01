@@ -1,12 +1,17 @@
 <form [formGroup]="formAddPosition">
-    <div class="w-full bg-zinc-100 my-6 rounded-xl p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div [ngClass]="{'opacity-50': this.messageNoComponentsShow}" class="w-full bg-zinc-100 my-6 rounded-xl p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <div *ngIf="!this.oldPosition">
                 <div class="font-bold underline text-2xl py-3">Select item</div>
-                Item to add:
-                <select class="ml-6" formControlName="item">
-                    <option *ngFor="let selectOption of selectOptions" [value]="selectOption.id">{{selectOption.task}}</option>
-                </select>
+                <div *ngIf="selectOptions.length != 0">
+                    Item to add:
+                    <select class="ml-6" formControlName="item">
+                        <option *ngFor="let selectOption of selectOptions" [value]="selectOption.id">{{selectOption.task}}</option>
+                    </select>
+                </div>
+                <div class="italic" *ngIf="selectOptions.length == 0">
+                    Attention! No components to add a button... Please go add components
+                </div>
             </div>
             <div *ngIf="this.oldPosition">
                 {{this.oldPosition.task}}

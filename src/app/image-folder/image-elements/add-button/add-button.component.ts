@@ -24,6 +24,8 @@ export class AddButtonComponent implements OnInit {
 
   xInputField!: number;
   yInputField!: number;
+
+  messageNoComponentsShow: boolean = false;
   
   showButtonPreviewEmitFun(_xPos: any, _yPos: any) {
     this.showButtonPreview.emit({xPos: _xPos, yPos: _yPos});
@@ -49,6 +51,8 @@ export class AddButtonComponent implements OnInit {
       this.xInputField = this.oldPosition.xPos;
       this.yInputField = this.oldPosition.yPos;
     }
+
+    console.log(this.selectOptions)
   }
 
   submit() {
