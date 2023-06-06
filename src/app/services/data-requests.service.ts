@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -37,7 +37,8 @@ export class DataRequestsService {
 
 
   async addPosition(body: {'_xPos': number, '_yPos': number, '_idItem': number}) {
-    this.http.post(`${this.apiRootLink}Positions/InsertNewPosition`, {id: 0, xPosition: body._xPos, yPosition: body._yPos, fk: body._idItem}, {responseType: 'text'}).subscribe((data) => {
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+    this.http.post(`${this.apiRootLink}Positions/InsertNewPosition`, {id: 0, xPosition: body._xPos, yPosition: body._yPos, fk: body._idItem}, {headers: headers, responseType: 'text'}).subscribe((data) => {
       
     });
   }

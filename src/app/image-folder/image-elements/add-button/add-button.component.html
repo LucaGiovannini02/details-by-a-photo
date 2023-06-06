@@ -5,7 +5,7 @@
                 <div class="font-bold underline text-2xl py-3">Select item</div>
                 <div *ngIf="selectOptions.length != 0">
                     Item to add:
-                    <select class="ml-6" formControlName="item">
+                    <select class="ml-6 w-64" formControlName="item">
                         <option *ngFor="let selectOption of selectOptions" [value]="selectOption.id">{{selectOption.task}}</option>
                     </select>
                 </div>
@@ -46,3 +46,7 @@
         </div>
     </div>
 </form>
+
+<div class="w-full h-3">
+
+</div>
