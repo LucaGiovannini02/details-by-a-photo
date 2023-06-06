@@ -10,6 +10,7 @@ export class ImageComponent implements OnInit {
   location: any = window.location.href;
   
   @Output() closeDetailsDiv = new EventEmitter();
+  @Output() changeIconColor = new EventEmitter<string>();
   cancelAddButtonDivShow: boolean = false;
 
   oldPositions!: any;
@@ -46,25 +47,30 @@ export class ImageComponent implements OnInit {
     delete this.componentDetails;
   }
 
-  ngOnInit(): void {
-    setInterval(() => {
-      Promise.resolve(this.service.getComponentsWithValues()).then((data) => {
-        this.components = [];
-        this.components = data;
+  refreshData() {
+    Promise.resolve(this.service.getComponentsWithValues()).then((data) => {
+      this.components = [];
+      this.components = data;
 
-        if(this.isButtonChanging?.idPosition) {
-          this.takePositionById(this.isButtonChanging.idPosition).xPosition = this.isButtonChanging.xPos;
-          this.takePositionById(this.isButtonChanging.idPosition).yPosition = this.isButtonChanging.yPos;
-        }
-      })
-
-      if(this.componentDetails) {
-        this.componentDetails.values = this.components[this.componentDetails.id].details; 
+      if(this.isButtonChanging?.idPosition) {
+        this.takePositionById(this.isButtonChanging.idPosition).xPosition = this.isButtonChanging.xPos;
+        this.takePositionById(this.isButtonChanging.idPosition).yPosition = this.isButtonChanging.yPos;
       }
 
-      // PERCHE NON CE LINDEX??!?!?!?!?
+      this.changeIconColor.emit(this.getColorForWebsiteIcon());
+    })
+
+    if(this.componentDetails) {
+      this.componentDetails.values = this.components[this.componentDetails.id].details; 
+    }
+  }
+
+  ngOnInit(): void {
+    this.refreshData();
 
 
+    setInterval(() => {
+      this.refreshData()
     }, 2000);
 
 
@@ -206,5 +212,28 @@ export class ImageComponent implements OnInit {
 
   isNumber(_x: any) {
     return Number.isFinite(_x)
+  }
+
+
+  getColorForWebsiteIcon() {
+    let finalColor = 'blue';
+
+    this.components.map((data) => {
+      data.details.map((data: any) => {
+        if (finalColor == 'red') {
+          return;
+        }
+
+        if(data['value'] > data['yellowLimit']) {
+          finalColor = 'red';
+          return;
+        } else if (data['value'] > data['greenLimit'] && data['value'] <= data['yellowLimit']) {
+          finalColor = 'yellow';
+        }
+        
+      })
+    })
+
+    return finalColor;
   }
 }
