@@ -8,33 +8,33 @@ Questo progetto l’ho sviluppato per una azienda che mi ha chiesto di fare un i
 
 Per prima cosa mi sono preoccupato di come potere “ancorare” dei tasti sopra l’immagine, in modo tale da fare capire a tutti in pochi secondi a quale componente della linea si sta facendo riferimento.
 
-![Immagine 2023-06-08 084434](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/4654f95f-e823-47a5-96a5-6ec03fab0696)
+![Immagine 2023-06-08 084434](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/50179c46-7a61-4669-8ba8-964ce389fd5e)
 
 Poi ho programmato le cose essenziali:
 
 - Quando si sposta il puntatore sopra a questi tasti compare una picola finestrella con le informazioni piu’ importanti.
 
-![Immagine 2023-06-08 085531](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/be1a91ec-e9bf-461e-86d8-4045866c1224)
+![Immagine 2023-06-08 085531](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/e83aa206-54b7-4861-80a2-57c687e2cd81)
 
 - Se si clicca su uno di questi tasti si aprira’ una finestra con le informazioni riguardante al componente e tutti i suoi relativi parametri
 
-![Immagine 2023-06-08 085757](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/7dd36b54-fd24-4bf7-b45a-0b783a1dd605)
+![Immagine 2023-06-08 085757](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/f2f150bf-c4bb-47a3-bb00-c9cf19f40972)
 
 - Ho aggiunto anche il form per mettere tasti nell’immagine specificando le due cordinate “X” e “Y”.
 
-![Immagine 2023-06-08 090010](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/6bb29d80-e0ee-45ec-9769-1c00baa34db4)
+![Immagine 2023-06-08 090010](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/e5ea9d95-4993-44b5-a189-880ae94116a3)
 
 - Inoltre quando si inserisce dei parametri validi sulla posizione automaticamente il sito fara’ visualizzare un’anteprima all’utente
 
-![Immagine 2023-06-08 090029](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/0dbda75b-6b2d-4fa7-944d-c3b93d8ef22a)
+![Immagine 2023-06-08 090029](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/e9d0a02e-fe8b-497b-a556-188a91f093d2)
 
 Come ultimo particolare, ho voluto mettere l’icona della tab del browser dinamica: in base alla situazione l’icona puo’ essere un cerco di tre colori, cioe’ blu, giallo o rosso. Se uno dei parametri raggiunge il valore limite, e in base a quanto lo supera, il colore dell’icona cambia. Questo l’ho voluto fare cosi’ se un operatore sta navigando in giro per il browser, potra’ sempre vedere sulla tab in cima se c’e’ qualche problema.
 
-![blue](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/36b06041-c8bc-4740-81d5-8fd2fdec574e)
+![blue](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/753cae3a-7f45-4573-90d7-225b764cf918)
 
-![Immagine 2023-06-08 090300 - Copy](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/520def56-09fc-40a2-90fe-c52692f423be)
+![Immagine 2023-06-08 090300 - Copy](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/273e32b4-8a61-415b-bdea-ba9ecfbb27fb)
 
-![Immagine 2023-06-08 090300](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/b400da53-07d4-4778-9957-c04c41d66b10)
+![Immagine 2023-06-08 090300](https://github.com/LucaGiovannini02/details-by-a-photo/assets/58634285/9dc7bfdd-290d-4ca2-a4f5-7bd60e045624)
 
 ### Considerazioni finali
 
