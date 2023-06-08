@@ -52,7 +52,7 @@ Link alla sua rep:
 
 ### Note
 
-Questo lavoro e’ stato fatto insieme ad un altro sito caricato sull’altra mia repository. L’altro progetto serviva ad aggiungere tutti i componenti presenti sulla macchina e i relativi parametri.
+Questo lavoro e’ stato fatto insieme ad un altro sito caricato sull’altra mia repository. L’altro progetto serve ad aggiungere tutti i componenti presenti sulla macchina e i relativi parametri.
 
 Per maggiori informazioni ecco il link alla repo:
 
