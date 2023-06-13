@@ -29,7 +29,7 @@
         <div *ngIf="this.components && !this.showAddButtonDiv && !this.oldPositions" class="my-3">
             <input value="Add button" type="button" (click)="this.showAddButtonDiv = !this.showAddButtonDiv" class="py-3 px-6 border-1 border-zinc-500 rounded text-zinc-500 cursor-pointer">
         </div>
-
+        
         <app-add-button *ngIf="this.showAddButtonDiv || this.oldPositions" [oldPosition]="this.oldPositions" [selectOptions]="getOptionsForAppAddButton()" (cancelAddButton)="cancelAddButtonFun()" (showButtonPreview)="showButtonPreviewFun($event)"></app-add-button>
     </div>
 

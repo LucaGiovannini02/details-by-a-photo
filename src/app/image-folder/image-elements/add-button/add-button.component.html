@@ -1,4 +1,4 @@
-<form [formGroup]="formAddPosition">
+<form [formGroup]="formAddPosition"  onsubmit="return false;">
     <div [ngClass]="{'opacity-50': this.messageNoComponentsShow}" class="w-full bg-zinc-100 my-6 rounded-xl p-6" style="display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <div *ngIf="!this.oldPosition">
